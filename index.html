@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="cs" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Zamezení indexování vyhledávači podle zadání -->
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Milan Školník | Digitální Vizitka</title>
+  
+  <style>
+    /* CSS proměnné pro Barevný Tmavý a Světlý styl */
+    :root[data-theme="dark"] {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --text-color: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary-gradient: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+      --accent-color: #38bdf8;
+      --border-color: #334155;
+      --tag-bg: #0f172a;
+      --shadow-color: rgba(99, 102, 241, 0.2);
+    }
+
+    :root[data-theme="light"] {
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-color: #0f172a;
+      --text-muted: #64748b;
+      --primary-gradient: linear-gradient(135deg, #4f46e5, #7c3aed, #db2777);
+      --accent-color: #0284c7;
+      --border-color: #e2e8f0;
+      --tag-bg: #f1f5f9;
+      --shadow-color: rgba(79, 70, 229, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.2s;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    /* Záhlaví a Navigace */
+    header {
+      position: sticky;
+      top: 0;
+      background-color: rgba(30, 41, 59, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      z-index: 1000;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    :root[data-theme="light"] header {
+      background-color: rgba(255, 255, 255, 0.85);
+    }
+
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    .theme-btn {
+      background: var(--primary-gradient);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      box-shadow: 0 4px 12px var(--shadow-color);
+    }
+
+    .theme-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Hero Sekce */
+    .hero {
+      text-align: center;
+      padding: 3.5rem 1.5rem;
+      background: var(--card-bg);
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 10px 25px var(--shadow-color);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: var(--primary-gradient);
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero .subtitle {
+      font-size: 1.2rem;
+      color: var(--accent-color);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .motto {
+      font-style: italic;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto 1.5rem auto;
+    }
+
+    .badges {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      background: var(--tag-bg);
+      border: 1px solid var(--border-color);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    /* Obecné sekce */
+    section {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-color);
+    }
+
+    h2::before {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 24px;
+      background: var(--primary-gradient);
+      border-radius: 4px;
+    }
+
+    /* Mřížka dovedností */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .skill-card {
+      background: var(--tag-bg);
+      padding: 1.2rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    .skill-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-color);
+    }
+
+    .skill-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+    }
+
+    /* Karta projektu */
+    .project-card {
+      background: var(--tag-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent-color);
+    }
+
+    .project-card h3 {
+      font-size: 1.2rem;
+      color: var(--text-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--accent-color);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.2rem 0.7rem;
+      border-radius: 12px;
+    }
+
+    /* Kontakt */
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--primary-gradient);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 4px 15px var(--shadow-color);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.95;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
+      box-shadow: none;
+    }
+
+    .btn-secondary:hover {
+      background: var(--tag-bg);
+      border-color: var(--accent-color);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 2rem;
+    }
+
+    /* Responzivní prvek pro mobily */
+    @media (max-width: 650px) {
+      header {
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 1rem;
+      }
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .container {
+        padding: 0 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Záhlaví s navigací a interaktivním přepínačem témata -->
+  <header>
+    <div class="logo">Milan Školník</div>
+    <nav>
+      <a href="#o-mne">O mně</a>
+      <a href="#dovednosti">Dovednosti</a>
+      <a href="#projekty">Projekty</a>
+      <a href="#budoucnost">Budoucnost</a>
+      <a href="#kontakt">Kontakt</a>
+      <button class="theme-btn" id="themeToggle" onclick="toggleTheme()">☀️ Světlý režim</button>
+    </nav>
+  </header>
+
+  <div class="container">
+    
+    <!-- 1. Úvodní představení -->
+    <section class="hero">
+      <h1>Milan Školník</h1>
+      <div class="subtitle">Elektrotechnika & Průmyslová Automatizace</div>
+      <p class="motto">„Propojuji logiku řídicích systémů, automatizaci obvodů a moderní vývojové skripty v praxi.“</p>
+      <div class="badges">
+        <span class="badge">⚡ Elektrotechnika</span>
+        <span class="badge">🤖 Automatizace & PLC</span>
+        <span class="badge">🐍 Python Skripty</span>
+        <span class="badge">⚽ Aktivní sportovec (FK Náchod)</span>
+      </div>
+    </section>
+
+    <!-- 2. O mně -->
+    <section id="o-mne">
+      <h2>O mně</h2>
+      <p>
+        Jsem studentem 4. ročníku střední školy se zaměřením na <strong>elektrotechniku a automatizaci</strong>. Baví mě svět moderních technologií, oživování zapojení, práce s reléovou i PLC logikou a vývoj automatizačních skriptů v Pythonu.
+      </p>
+      <p style="margin-top: 0.8rem;">
+        Kromě techniky je mojí velkou vášní sport – hrají aktivně fotbal za <strong>FK Náchod</strong> a věnuji se kondičnímu cvičení. Sport mě naučil disciplíně, týmové spolupráci a vytrvalosti, což zúročuji i při řešení technických projektů.
+      </p>
+    </section>
+
+    <!-- 3. Moje dovednosti -->
+    <section id="dovednosti">
+      <h2>Moje dovednosti</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>⚡ Elektrotechnika & HW</h3>
+          <p>Zapojování obvodů, měření komponentů (NTC/PTC thermistory, LDR snímače), diagnostika a práce v dílnách.</p>
+        </div>
+        <div class="skill-card">
+          <h3>🤖 Automatizace & Simulace</h3>
+          <p>FluidSIM, sekvenční elektropneumatika, základy PLC programování a reléová logika.</p>
+        </div>
+        <div class="skill-card">
+          <h3>🐍 Programování & Skripty</h3>
+          <p>Python 3 (data scraping, zpracování REST API, Discord webhooks), HTML, CSS a práce ve VS Code.</p>
+        </div>
+        <div class="skill-card">
+          <h3>🎨 Grafika & AI Nástroje</h3>
+          <p>Inkscape (vektorová grafika), GIMP (úprava fotografií), AI nástroje pro optimalizaci kódů a návrh webů.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Moje projekty a úspěchy -->
+    <section id="projekty">
+      <h2>Moje projekty a úspěchy</h2>
+      
+      <div class="project-card">
+        <h3>1. Automatizovaný Python skript pro sledování tržních dat</h3>
+        <p>Vytvořil jsem skript v Pythonu pro automatické stahování cenových dat z externího webového API v reálném čase a následné zasílání výstražných notifikací na Discord kanál pomocí Webhooků.</p>
+        <div class="project-tags">
+          <span class="tag">Python 3</span>
+          <span class="tag">REST API</span>
+          <span class="tag">Discord Webhooks</span>
+          <span class="tag">Automation</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <h3>2. Návrh a simulace elektropneumatického řízení (FluidSIM)</h3>
+        <p>Navrhl a nasimuloval jsem sekvenční řídicí obvod pro pneumatické válce využívající reléovou logiku, časovače a koncové spínače. Projekt ověřil správný průběh pracoviště.</p>
+        <div class="project-tags">
+          <span class="tag">FluidSIM</span>
+          <span class="tag">Elektropneumatika</span>
+          <span class="tag">Reléová logika</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <h3>3. Laboratorní měření komponentů & Vektorový design</h3>
+        <p>Realizace a zpracování protokolu laboratorních měření zátěžových charakteristik fotoresistorů a termistorů doplněné o vektorovou grafiku navrženou v Inkscape.</p>
+        <div class="project-tags">
+          <span class="tag">Elektro měření</span>
+          <span class="tag">Inkscape</span>
+          <span class="tag">GIMP</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Moje budoucnost -->
+    <section id="budoucnost">
+      <h2>Moje budoucnost</h2>
+      <p>
+        Po úspěšném dokončení maturity a složení závěrečných zkoušek plánuji nastoupit přímo do praxe v oboru <strong>průmyslové automatizace</strong>. Chci se věnovat programování PLC systémů, oživování automatizovaných linek, montáži a diagnostice elektronických zařízení.
+      </p>
+    </section>
+
+    <!-- 6. Kontakt -->
+    <section id="kontakt">
+      <h2>Kontakt</h2>
+      <p>Máš zájem o spolupráci nebo si chceš prohlédnout mé kódové projekty? Ozvi se mi nebo navštiv můj GitHub profil:</p>
+      <div class="contact-container">
+        <a href="https://github.com/milanskolnik167" target="_blank" class="btn">
+          💻 GitHub: milanskolnik167
+        </a>
+        <a href="mailto:milan.fknachod@gmail.com" class="btn btn-secondary">
+          ✉️ milan.fknachod@gmail.com
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Milan Školník | Digitální vizitka – Předmět Moderní technologie</p>
+  </footer>
+
+  <!-- JS skript pro funkční přepínání tmavého a světlého tématu -->
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const currentTheme = html.getAttribute('data-theme');
+      
+      if (currentTheme === 'dark') {
+        html.setAttribute('data-theme', 'light');
+        btn.textContent = '🌙 Tmavý režim';
+      } else {
+        html.setAttribute('data-theme', 'dark');
+        btn.textContent = '☀️ Světlý režim';
+      }
+    }
+  </script>
+</body>
+</html>
